@@ -53,7 +53,7 @@ $ adb install your_app
 
 运行app，可在logcat看到如下信息：
 
-![Snipaste_2021-03-28_19-57-20](img\Snipaste_2021-03-28_19-57-20.png)
+![Snipaste_2021-03-28_19-57-20](img/Snipaste_2021-03-28_19-57-20.png)
 
 此时`data/data/your_app/aupk`下多出许多文件
 
@@ -62,7 +62,7 @@ $ cd data/data/your_app/aupk
 $ ls -l
 ```
 
-![Snipaste_2021-03-28_19-56-55](img\Snipaste_2021-03-28_19-56-55.png)
+![Snipaste_2021-03-28_19-56-55](img/Snipaste_2021-03-28_19-56-55.png)
 
 其中，`.dex`为整体dump下来的Dex文件，`class.json`记录了Dex文件里所有的类名，前缀数字代表Dex文件的大小。
 
@@ -72,7 +72,7 @@ $ ls -l
 $ findstr /m "SplashActivity" *class.json
 ```
 
-![Snipaste_2021-03-28_22-43-16](img\Snipaste_2021-03-28_22-43-16.png)
+![Snipaste_2021-03-28_22-43-16](img/Snipaste_2021-03-28_22-43-16.png)
 
 
 
@@ -92,7 +92,7 @@ $ echo "com.klcxkj.zqxy">data/local/tmp/aupk.config
 
 主动调用过程中打印的log:
 
-![Snipaste_2021-03-28_22-54-27](img\Snipaste_2021-03-28_22-54-27.png)
+![Snipaste_2021-03-28_22-54-27](img/Snipaste_2021-03-28_22-54-27.png)
 
 有的壳hook了Log函数，导致Log.i()打印不出来消息，但jni层的LOG和Log.e()依然有效，当打印出`Aupk run over`时，代表整个主动调用过程结束，可以在`data/data/you_app/aupk`下看到一些以`method.json`结尾的文件，这些文件包含了Dex文件的函数CodeItem信息，用于后面对Dex文件的修复。
 
@@ -112,12 +112,12 @@ $ dp fix -d 8273364_ExecuteSwitchImpl.dex -j 8273364_ExecuteSwitchImpl_method.js
 
 等待片刻，即可完成修复：
 
-![Snipaste_2021-03-28_23-08-22](img\Snipaste_2021-03-28_23-08-22.png)
+![Snipaste_2021-03-28_23-08-22](img/Snipaste_2021-03-28_23-08-22.png)
 
 带patched后缀的就是修复后的Dex文件
 
-![Snipaste_2021-03-28_23-09-38](img\Snipaste_2021-03-28_23-09-38.png)
+![Snipaste_2021-03-28_23-09-38](img/Snipaste_2021-03-28_23-09-38.png)
 
 反编译看看效果：
 
-![Snipaste_2021-03-28_23-13-32](img\Snipaste_2021-03-28_23-13-32.png)
+![Snipaste_2021-03-28_23-13-32](img/Snipaste_2021-03-28_23-13-32.png)
